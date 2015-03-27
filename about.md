@@ -1,6 +1,10 @@
 ---
 layout: page
-title: 关于
+title: GhostCoder
 permalink: /about/
 ---
-GhostCoder
+现任ThoughtWorks高级软件质量咨询师,超过10年软件开发和测试工作工作经验。
+最熟悉的领域是嵌入式系统开发、Linux系统开发、各种脚本、测试工具、自动化测试系统开发、以及
+Agile中的QA。其中对于服务器性能测试，Web功能测试，Web安全测试以及测试分层一体化解决方案有
+较深的理解。现在关注于全方位自动化QA的工作，以及对于Agile流程中怎么实现统一的流程、故事、功
+能、测试和文档管理，以及质量控制度量。
