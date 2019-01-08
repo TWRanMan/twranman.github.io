@@ -1,7 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+---
+layout: post
+title:  "移动应用的测试策略与测试架构"
+date:   2018-01-10 23:00:00
+categories: jekyll update
+---
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 7.2.1 (456793)"/><meta name="author" content="Ran Liu"/><meta name="created" content="2019-01-08 09:48:47 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2019-01-08 09:49:00 +0000"/><title>Untitled</title></head><body><h1 style="box-sizing: border-box; font-size: 28px; font-family: &quot;Open Sans&quot;; font-weight: bold; line-height: 1.1; color: rgb(68, 68, 68);"><span style="box-sizing: border-box; font-size: 28px; font-family: &quot;Open Sans&quot;; font-weight: bold; line-height: 1.1; color: rgb(68, 68, 68);">移动应用的测试策略与测试架构
-</span></h1><div><div style="box-sizing: border-box; margin-top: 1em; margin-bottom: 1em;"><span style="box-sizing: border-box;-en-paragraph:true;">今天我们来谈谈移动测试的测试策略与测试架构。
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.5 (453175)"/><meta name="altitude" content="0"/><meta name="author" content="Ran Liu"/><meta name="created" content="2015-11-20 00:47:34 +0000"/><meta name="latitude" content="0"/><meta name="longitude" content="0"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-03-12 16:51:43 +0000"/><title>自动化测试框架分类与思考</title></head><body>
+	
+<div><div style="box-sizing: border-box; margin-top: 1em; margin-bottom: 1em;"><span style="box-sizing: border-box;-en-paragraph:true;">今天我们来谈谈移动测试的测试策略与测试架构。
 </span></div><div style="box-sizing: border-box; margin-top: 1em; margin-bottom: 1em;"><span style="box-sizing: border-box;-en-paragraph:true;">首先我们将移动应用的范围限定在智能移动操作系统（比如Android、iOS、WinPhone等）上，包括手机应用，智能设备应用等。
 </span></div><div style="box-sizing: border-box; margin-top: 1em; margin-bottom: 1em;"><span style="box-sizing: border-box;-en-paragraph:true;">智能手机和智能设备的普及需要大量的应用来支撑。随着应用数量的增多，业务复杂度的提高，移动应用也越来越需要各种测试来保证应用以及设备本身的正确和稳定运行。因此移动应用测试的需求也越来越大，大量关于移动应用测试的书籍应运而生，比如</span><a href="https://item.jd.com/12174702.html" style="box-sizing: border-box; color: rgb(218, 68, 83);-en-paragraph:true;">《Android移动性能实战》</a><span style="box-sizing: border-box;-en-paragraph:true;">，</span><a href="https://item.jd.com/12216946.html" style="box-sizing: border-box; color: rgb(218, 68, 83);-en-paragraph:true;">《腾讯iOS测试实践》</a><span style="box-sizing: border-box;-en-paragraph:true;">、</span><a href="https://item.jd.com/11728332.html" style="box-sizing: border-box; color: rgb(218, 68, 83);-en-paragraph:true;">《移动APP性能评测与优化》</a><span style="box-sizing: border-box;-en-paragraph:true;">、</span><a href="https://item.jd.com/11824622.html" style="box-sizing: border-box; color: rgb(218, 68, 83);-en-paragraph:true;">《深入理解Android自动化测试》</a><span style="box-sizing: border-box;-en-paragraph:true;">、</span><a href="https://item.jd.com/10214278697.html" style="box-sizing: border-box; color: rgb(218, 68, 83);-en-paragraph:true;">《精通移动App测试实战：技术、工具和案例》</a><span style="box-sizing: border-box;-en-paragraph:true;">等。
 </span></div><div style="box-sizing: border-box; margin-top: 1em; margin-bottom: 1em;"><span style="box-sizing: border-box;-en-paragraph:true;">这些书都介绍了大量的移动应用测试实践，但是无论看多少本书，学习多少种测试方法、测试技术或者测试工具和框架，首先还是需要学习并使用测试策略与测试架构。如果没有在一开始制定好的测试策略和测试架构，而是盲目进行各种测试，很有可能事倍功半。
