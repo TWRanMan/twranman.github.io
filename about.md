@@ -9,19 +9,19 @@ permalink: /about/
 
 **公开演讲经历**
 
-- 2019 TiD 质量竞争力大会 -《微服务系统测试实践之服务虚拟化》未讲，敬请期待
+- 2019 TiD 质量竞争力大会 -《微服务测试策略与实践》课程培训，未讲，敬请期待
 - 2019 南京开发者大会 -《契约测试-大规模微服务系统开发中的质量内建利器》未讲，敬请期待
 - 2019 DevOps Meetup 成都 -《服务器端性能测试与DevOps》未讲，敬请期待
 - 2019 IEEE International Conference on Software Testing (ICST) -《Agile Threat Modelling》未讲，敬请期待
 - 2019 V咖分享会（VIPTEST）-《软件安全测试101》
 - 2018 中国国际软件质量工程（iSQE）峰会 -《规模化微服务系统中的测试策略与实践》
 - 2018 TiD 质量竞争力大会 -《规模化微服务系统中的测试策略与实践》
-- 2018 Secure Day 成都 -《安全测试101》
+- 2018 Secure Day 成都 -《软件安全测试101》
 - 2018 TiD2018系列沙龙成都 -《安全测试实践之模糊测试-强势发掘安全漏洞的利器》
 - 2017 51Testing 互联网金融时代的测试风云 -《互联网+时代下的软件测试思与变》
 - 2016 BQConf 成都 -《软件测试的新趋势》
 - 2016 QCon -《大型分布式团队的 SCM 方案》
-- 2016 TiD 质量竞争力大会 -《JavaScript全栈测试》
+- 2016 TiD 质量竞争力大会 -《JavaScript全栈测试》课程培训
 - 2016 CSTQB国际软件测试高峰论坛 -《内建安全的软件开发-BSI》
 - 2016 华为Native Digital大会 -《JavaScript全栈测试》
 - 2015 敏捷之旅 -《使用CDCD开发Web Service API》
@@ -31,6 +31,6 @@ permalink: /about/
 - 2015 CSTQB国际软件测试高峰论坛 -《Cucumber与BDD实战研讨班》
 - 2014 TiD 质量竞争力大会 -《性能测试问题与思考 》
 - 2014 TiD 质量竞争力大会 -《自动化UI测试之视觉感知测试 》
-- 2014 TiD 质量竞争力大会 -《Web安全: Build Security In》
+- 2014 TiD 质量竞争力大会 -《Web安全: Build Security In》课程培训
 - 2014 BQConf 北京 -《视觉感知测试》
 - 2013 OpenParty 成都 -《新一代开源性能测试工具-Gatling》
