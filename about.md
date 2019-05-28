@@ -13,7 +13,7 @@ permalink: /about/
 - 2019 DevOps国际峰会 -《微服务测试中的服务虚拟化实践》未讲，敬请期待
 - 2019 TiD 质量竞争力大会 -《微服务测试策略与实践》课程培训，未讲，敬请期待
 - 2019 南京开发者大会(NJSD) -《契约测试-大规模微服务系统开发中的质量内建利器》未讲，敬请期待
-- 2019 DevOps Meetup 成都 -《服务器端性能测试与DevOps
+- 2019 DevOps Meetup 成都 -《服务器端性能测试与DevOps》
 - 2019 IEEE International Conference on Software Testing (ICST) -《Agile Threat Modelling》
 - 2019 V咖分享会（VIPTEST）-《软件安全测试101》
 - 2018 中国国际软件质量工程（iSQE）峰会 -《规模化微服务系统中的测试策略与实践》
