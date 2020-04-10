@@ -37,9 +37,9 @@ categories: autotest update
 
 由于这个项目是中国团队和法国团队一起合作开发，当时法国团队的架构师提出选用Cucumber作为自动化测试框架来测试这个系统，项目需要支持多国语言，且需要同时做服务器和手机端的功能测试，甚至在一个测试场景中既包含服务器测试部分，又含手机端测试部分，而使用基于Cucumber的测试系统很好的满足了我们的需求，其中手机端的功能测试用的是Calabash 8 。Calabash是一个手机功能测试系统，它使用Cucumber将Android的测试框架Robotium 9 和iOS的测试框架Frank 10 封装了起来，使得Cucumber的Step可以调用Robotium和Frank进行测试。这样就可以实现一个测试场景里面既包含手机端测试，又包含服务器端测试，比如：
 
-I "submit" update to "Facebook" with "I am happy today" on "Android"
+`I "submit" update to "Facebook" with "I am happy today" on "Android"`
 
-I "get" update on "Facebook” with "I am happy today" on "Server"
+`I "get" update on "Facebook” with "I am happy today" on "Server"`
 
 实现方式是在Calabash中使用Ruby实现一层胶水代码，和服务器测试功能测试代码连结起来，并根据不同的Step调用不同的测试驱动层代码从而实现同一个测试用例同时包含服务器端和手机端测试。虽然这样的测试用例不会很多，但它却有效的表达了端到端的系统集成测试，让测试集合更加丰满。
 
@@ -98,17 +98,23 @@ I "get" update on "Facebook” with "I am happy today" on "Server"
 首先定义两个变量文件：
 
 **ci-env.py:**
+
 `portal_ip = “192.168.1.1"`
+
 `……`
 
-`dev-share-env.py:`
+**dev-share-env.py:**
+
 `portal_ip = “192.168.1.4"`
+
 `……`
 
 在用例文件中可以按照下面的方式引用上述变量文件中的变量：
 
 `……`
-`**open** browser ${portal_ip}`
+
+`open browser ${portal_ip}`
+
 `……`
 
 然后在运行测试时加入如下的命令行参数即可针对CI环境运行测试：
