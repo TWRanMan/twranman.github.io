@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "自动化测试框架Cucumber和RobotFramework的实战对比"
+title:  "自动化测试之框架Cucumber和RobotFramework的实战对比"
 date:   2015-04-01 13:50:26
 categories: autotest update
 ---
