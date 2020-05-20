@@ -132,7 +132,7 @@ categories: autotest update
 |             | Cucumber                                                     | RobotFramework                                               |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 亮点        | 使用自然语言，更易读支持表格参数  14支持多种格式的Report：html、junit etc.支持多种语言支持四种状态的测试步骤  15  ：Passed、Failed、Skipped、Pending支持使用变形器消除重复  16一个商用的在线Cucumber系统：Cucumber Pro  17 | 使用关键字的机制，更容易上手提供了RIDE，对于不熟悉编码的人来说比较友好能够精细的控制关键字的scope  19Log和Report非常好  20使用变量文件的机制来描述不同的环境  21丰富的关键字库  22内置变量  23 |
-| 不足        | 缺乏类似RIDE对纯测试人员友好的专用工具                       | 不支持类似于Cucumber中的表格参数  14使用Jython版本测试运行启动慢 |
+| 不足        | 缺乏类似RIDE对纯测试人员友好的专用工具                       | 使用Jython版本测试运行启动慢 |
 | Jenkins支持 | 支持                                                         | 支持                                                         |
 | Maven支持   | 支持                                                         | 支持                                                         |
 | 开发效率    | 高效-Jetbrains系列的IDE                                      | 高效-RIDE和Jetbrains系列的IDE                                |
