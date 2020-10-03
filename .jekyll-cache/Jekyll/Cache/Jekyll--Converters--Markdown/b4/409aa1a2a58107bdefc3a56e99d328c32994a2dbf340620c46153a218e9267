@@ -1,0 +1,124 @@
+I"(I<p>2013，一个即忙碌又精彩的一年。虽然它已经过去，但是总想写点什么总结一下。作为一名QA，过去一年是我的软件质量知识体系和自动化测试知识体系收获最丰的一年，让我对于软件质量和自动化测试有了一个更高层次的认识。所以我写下了一些自己更新了的知识，以及在和其他公司的QA交谈之后发现的一些他们应该更新的知识。借此希望能对各位看官起到一些提示或者补充作用，当然我也希望各位与我进行联系，并共同探讨未来的QA到底应该具有什么样的能力和知识体系。</p>
+
+<h3 id="web应用程序视觉感知测试">Web应用程序视觉感知测试</h3>
+
+<p>视觉感知测试，对于很多QA，包括我在2013以前对于它的认知都是手动测试领域的一个成员。在这个Web系统爆炸的年代，Web UI界面布局测试，多浏览器测试，CSS的refactor等都成为了Web UI测试的痛中之痛，特别是大型Web应用的功能回归测试量太大，从而导致很多时候根本无法完成，所以很少会有团队去做全方位的UI界面布局回归测试，特别是对于使用Agile流程开发的团队就更加困难。</p>
+
+<p>为了缓解这样的困境，不断地有人思考怎么自动化UI测试，我以前的公司就有人尝试在手机上做自动UI测试，但是最后也没有什么成效。最几年，Web应用程序发展得如火如荼，所以在去年，就有两个工程师，一个来自于Google，一个来自于ThoughtWorks就在尝试解决Web应用程序测试上的这个问题。不过他们的思路和以前不一样，不是想做一个全自动的UI测试框架，而是基于Agile的持续集成和持续部署的概念上，使用半自动的方法来减少UI回归测试的时间，从而减少WEB应用程序UI回归测试的时间。</p>
+
+<p>来自Google的工具是Dpxdt[1],而来自ThoughtWorks的是Viff[2]. 这两个工具的基本原理都是类似的，只是使用了不同的语言开发，以及适用的范围有点区别。</p>
+
+<p>Dpxdt是基于Python和PhantomJS[3]开发的一个Web Service系统，其中PhantomJS可以理解为一个没有UI的浏览器。用户使用其提供的RESTFul API可以十分方便的对比两个页面，而且它还提供一个功能十分强大的报表系统。 对于全部是静态页面的Web系统来说非常适用，不过对于需要手动导航，比如需要进行输入，点击等之后才能进行比较的页面，它现在的版本并不适合。它还提供了一个方式可以把他很方便的部署到GWS上，所以对于国内在GFW下的用户可以暂时不用考虑这个功能。</p>
+
+<p>Viff是基于NodeJS和Selenium开发的一个本地工具。通过编写JavaScript代码来调用Selenium API, 并在真实的浏览器中进行截图比较。所以它比较适合动态的Web系统，因为可以编写代码模拟用户输入和点击操作。由于它底层使用的是Selenium作为驱动，所以他支持多种浏览器，比如IE，Chrome，Firefox等。在最新的Selenium中加入了对Android和iOS的支持，不过现在还不是很稳定，所以Viff还支持Android和iOS上的浏览器测试。如果对你来说搭建多浏览器环境比较困难，比如需要同时测试IE8，IE9，IE10等，可以选择BrowserStack[4]。BrowserStack是一个商业产品，他同时通过Web界面和API接口提供多浏览器环境给客户进行Web测试，Viff可以使用期API进行进行多浏览器截图。对于Viff，由于编写JavaScript代码也需要一定的门槛，所以对于没有代码能力的使用者在测试静态网页的时候应该选择Dpxdt，但是如果你有一定的代码能力，建议选用Viff。现在Viff正在开发Web Service功能，这样以后就可以作为一个Service进行部署和使用。</p>
+
+<p>不过现在这两个工具都还不是很成熟，还存在一些Bug，其中Viff还在继续开发新的功能中，不过基本使用还是可以的。如果在使用这两个工具的过程中发现任何Bug，请通过Github的Issues跟踪功能来及时反馈给作者，帮助这两个开源系统越来越好。我在BQConf上有一个Perceptual Testing的演讲[5],有兴趣的可以听一听。</p>
+
+<p>下图为实施了视觉感知测试之后对于Web系统回归测试的时间示意图：</p>
+
+<p><img src="http://www.liuranthinking.com/assets/qatools.resources/b410c901c8f82ffa9a4811ede240a257.jpeg" alt="img" /></p>
+
+<p>[1]https://github.com/bslatkin/dpxdt</p>
+
+<p>[2]https://github.com/winsonwq/viff</p>
+
+<p>[3]http://phantomjs.org/</p>
+
+<p>[4]http://www.browserstack.com/</p>
+
+<p>[5]http://v.youku.com/v_show/id_XNjQxMzk5OTYw.html</p>
+
+<p>[6]https://github.com/winsonwq/viff/wiki/_pages</p>
+
+<h3 id="移动测试">移动测试</h3>
+
+<p>最近几年由于iOS和Android设备越来越普及，移动应用的出现了井喷，大部分都是个人开发者或者小型公司开发的个人应用或者手游。而且随着iOS和Android的设备和SDK的初步成熟，大量的大型商业公司已经或者准备开发移动应用。对于商业移动应用，稳定性非常重要。对于稳定性，测试就非常重要。由于智能系统越来越复杂和成熟，其上面的应用程序的功能也越来越多，所以自动化测试也就越来越重要。自动iOS在2007年和Android在2008年发布以来，基于这两个系统的自动化测试工具就初步发展起来。一般情况下最好使用和应用程序开发使用的语言来写功能测试，但是由于商业应用的业务需求越来越复杂，所以我倾向于使用基于BDD和SBE的测试工具来做业务测试。比如Calabash[1]就是一个十分好用的基于Cucumber[2]的BDD移动测试工具，它同时支持Android和iOS。其Android的实现是基于robotium[3]，而iOS的实现是基于Frank[4]和UISpec[5]。使用Calabash，测试人员可以使用自然语言来编写的cucumber测试脚本，然后通过在PC上运行cucumber脚本来测试iOS和Android设备上的应用程序。如果你的公司拥有大量的手动测试人员，并且希望进行移动自动化测试，ThoughtWorks针对这样的公司开发了一套全新的移动自动化测试工具：Lever，他和Calabash一样，同时支持Android和iOS。测试人员只需要通过打开一个网页，通过选择移动应用界面上的特定组件和对其的操作来进行组成自动化测试步骤，多个测试步骤可以形成一个测试场景，最终完成各种自动化测试案例并运行。由于Lever不是开源产品，也没有公开的详细资料，所以如果你想了解其详细功能和内容，可以BQConf上的Lever的专题演讲[6]。</p>
+
+<p>对于最新版的Android 4.2+系统，由于Google使用了新的测试基础控件Google’s UiAutomator，导致Calabash并不适用了。最近一个新的开源项目APPIUM[7]支持这个最新版的iOS和Android的自动化测试。由于APPIUM出来不久，还需要一定的观察期，我也会一直关注其进展。</p>
+
+<p>[1]https://github.com/calabash</p>
+
+<p>[2]https://github.com/cucumber/cucumber</p>
+
+<p>[3]https://code.google.com/p/robotium/</p>
+
+<p>[4]https://github.com/moredip/Frank</p>
+
+<p>[5]https://code.google.com/p/uispec/</p>
+
+<p>[6]http://v.youku.com/v_show/id_XNjQxMjgzMTk2.html</p>
+
+<p>[7]http://appium.io/</p>
+
+<h3 id="web服务器性能测试">Web服务器性能测试</h3>
+
+<p>敏捷开发在当今软件行业里面扮演着越来越重要的角色，软件测试也随着逐步敏捷起来。由于软件系统，特别是服务器系统越来越复杂，规模也越来越大。开发人数也达到几十，甚至几百人，而且大规模使用第三方的软件库，比如Spring，Rails，Hibernate，.Net等。如果使用不当，将会引起很严重的性能问题甚至是稳定性问题，所以性能问题在当前的软件开发中已经越来越明显了。常规的持续集成验证了构建是否满足了功能设计要求，而持续性能测试增加了另外一重验证标准，程序是否满足了性能要求，从而是性能问题尽早被发现。持续性能测试主要的优点就是可以在代码改变以后可以快速的知道性能变化，比如如果发现性能问题，可以让提交这个Commit程序员去修复这个问题，因为他还能记住这个Commit。如果等到最后发布之前才发现，那么这个程序员可能已经不记得这个Commit，或者已经离开了公司，有可能导致修复这个问题的难度大大增加。如果这个是一个设计上的错误，那么团队就可以尽早修复它并避免以后的功能受其影响。</p>
+
+<p>比如铁道部的12306购票系统上线后的第一个春节就遇到了严重的性能问题，面对预料中的高访问量，系统在春运期间经常长时间无法访问，导致大量用户无法购票。像这样严重的性能问题是在开发的时候是可以预见的，不过还是出现在产品环境上，由此可见系统在构架上没有对性能进行有效的设计，在测试上没有进行有效的性能测试（由于12306产生这个性能问题的原因很复杂，我们这里不做过多讨论，比如各种组织和利益等原因，也不讨论怎么解决。）。当这个性能问题出现的时候，根本无法在短时间内修复，导致了如此严重的性能问题维持了很长一段时间。在第二年的春运里面，系统才增加了排队系统，有效的缓解了性能问题，不过还是会时不时出现无法访问的情况。由于12306是中国唯一的网上火车票购票系统，就算出现这样严重的性能问题，人们还是只有继续使用它。但是如果有多个购票网站，一旦某个出现了性能问题而导致客户长时间无法访问，那么就会带来大量的客户流失，造成巨大的损失。因此性能测试对拥有大量用户软件系统十分重要，而且需要越早发现性能问题，越早修复越好，因为等到发布前，就算测试出性能问题，也有可能因为构架问题而无法修复。</p>
+
+<p>让性能测试成为敏捷开发的一等公民对于更好的进行敏捷开发和高质量的持续部署越来越重要。持续性能测试不应该只是说说，特别是对于大型服务器项目和开发人员众多的情况下，持续性能测试将成为必不可少的组成部分。持续性能测试应该被看做持续交付的重要步骤，应该和回归测试一样，可以做到更频繁的高性能持续交付。在2013年5月发布的ThoughtWorks技术雷达中，让性能测试成为敏捷开发一等公民已经被列入了ADOPT [1]。对于当今的软件系统，特别是对于大型服务器系统，并且它又拥有大量用户的情况下，持续性能测试将成为一个必不可少的组成部分。让我们一起去实践持续性能测试，比如新一代的性能测试工具Gatling [2][3]就是一个很好的试验田，通过它，我们可以很好的实践对于服务器系统的持续性能测试。</p>
+
+<p>[1]http://www.infoq.com/cn/articles/thoughtWorks-technology-radar</p>
+
+<p>[2]http://gatling-tool.org/</p>
+
+<p>[3]http://www.infoq.com/cn/articles/new-generation-server-testing-tool-gatling</p>
+
+<h3 id="web自动化功能测试">Web自动化功能测试</h3>
+
+<p>在过去几年，由于Web2.0的出现导致了Web的第二春的到来，并且我知道的公司和客户们都非常重视Web自动化测试，并且使用率也很高。但是我发现很多测试人员还在使用Selenium IDE[1]或QTP等。对于Selenium[2]，我认识的一般的测试人员只会使用Selenium IDE进行测试录制，然后使用“重播”进行测试。对于通过Selenium IDE录制的脚本是非常难以维护的，导致测试步骤的更改之后一般只能重新录制。对于开发中的项目的其Cost非常高，所以在实际中使用的效果很不好。</p>
+
+<p>对于当前广泛使用的Agile的开发模型，Selenium IDE的方法基本不可用，所以需要更新到Selenium WebDriver（Selenium 2.0）[3]。Selenium WebDriver提供了一套支持各种语言的WebDriver API，比如Java，Ruby, Python等。通过这套API用户可以启动各种不同的浏览器，比如IE，Chrome，Firefox等，并且通过API可以让浏览器访问不同的网页，模拟点击和输入等，获取网页中的内容等。使用WebDriver API比老的Selenium IDE带来了更多的好处，更为适合Agile开发，测试流程更为灵活，维护更为方便，测试流程更为清晰易读，断言也更为多样化等。但是对于测试人员也有一个麻烦，就是至少需要学习一门语言来开发测试案例。驱动Selenium WebDriver的测试可以使用xUnit或者各种BDD框架。</p>
+
+<p>如果你们使用的是Ruby On Rails开发的Web系统，或者你想尝试一种新的快速的开发方式，你还有一个选择就是Watir[4]。Watir是一个使用Ruby开发的测试API，和WebDriver API类似，而且它自带和Rails集成的组件，所以对于Rails的Web系统它有天生的优势。</p>
+
+<p>由于Web Service的流行以及用户UI的需求越来越复杂，Web开发已经由MVC的模型发展到MVP和MVVM[5]模型。由此一来前端的逻辑复杂程度和代码量（如Javascript等）就会大大增加，由此带来的问题就是测试量也会大大增加。对于如此大量的Javascript代码逻辑层的测试，并不适合使用做UI层功能测试的Selenium。所以我们应该在Javascript层做自动化测试。基于Javascript的自动测试框架很多，由于我倾向于Agile和BDD，所以我倾向于Jasmine[6]，Mocha[7]和Karma[8]。其中Jasmine是一个支持BDD的自动化测试框架，而Macha是新的基于NodeJS开发的支持BDD的自动化测试框架。而Karma是一个自动化测试运行环境，它也是基于NodeJS开发的，Jasmine和Macha都可以在其上面运行。Karma支持多种browser，比如Firefox，Chrome， IE等，而且它使用也比较简单。</p>
+
+<p>[1]http://docs.seleniumhq.org/projects/ide/</p>
+
+<p>[2]http://docs.seleniumhq.org/</p>
+
+<p>[3]http://docs.seleniumhq.org/projects/webdriver/</p>
+
+<p>[4]http://watir.com/</p>
+
+<p>[5]http://www.codeproject.com/Articles/66585/Comparison-of-Architecture-presentation-patterns-M</p>
+
+<p>[6]https://github.com/pivotal/jasmine</p>
+
+<p>[7]http://visionmedia.github.io/mocha/</p>
+
+<p>[8]http://karma-runner.github.io/0.10/index.html</p>
+
+<h3 id="windows-应用程序测试">Windows 应用程序测试</h3>
+
+<p>虽然Web从上个世纪90年代开始崛起，到现在的空前盛世，但是任然有很多公司仍在开发和维护Windows应用程序。并且Windows应用程序的开发也从C++和MFC时代进入了.Net 和Silverlight时代。但是Windows应用程序的测试一直都是一个不大不小的问题，虽然有很多商用且成熟的自动测试系统，比如Test Complete[1]和QTP等，不过大部分是基于录制或者Action模型来创建测试，更没有提供现代流行的脚本支持，比如QTP使用的是VBScript，更不用说BDD的支持。在Agile的时代，测试工具API化才是一个正确的选择，如果能支持DSL那就更好了。使用API后，可以获得良好的可维护性，并且可以更为容易实现CI和CD。幸好有一帮志士开发了一套针对Windows应用程序的免费自动化测试框架White[2]，以及.Net的BDD框架SpecFlow[3]。White封装了Microsoft’s UIAutomation Library，并提供了一套简单易用的API。它支持Win32, WinForms, WPF, Silverlight and SWT (Java) platforms的应用程序，并且通过MicroSoft Windows SDK里面的Inspect[4]工具可以非常容易的找到应用程序中UI控件的ID来进行自动化测试。</p>
+
+<p>[1]http://smartbear.com/products/qa-tools/automated-testing-tools/</p>
+
+<p>[2]https://github.com/TestStack/White</p>
+
+<p>[3]http://www.specflow.org/</p>
+
+<p>[4]http://msdn.microsoft.com/en-us/library/windows/desktop/dd318521(v=vs.85).aspx</p>
+
+<h3 id="web应用系统安全">Web应用系统安全</h3>
+
+<p>安全，一个即神秘又兴奋还忧心的话题。其中安全世界里面的东西太多太多了，比如服务器安全，移动安全，网络安全，杀毒软件，入侵检测等等，不过今天我只想说说Web的安全。Web，在前面我已经用了各种的词汇来描述它的现状。正是由于它当前这种现状，我们不得不特别关注它。所以有一批黑客发起了一个关注Web安全的公益性项目OWASP(Open Web Application Security Project)[1]。在这个项目里面，有各种关于Web安全的资料，比如文档有《OWASP安全编码规范快速参考指南》，《OWASP测试指南》 和 《OWASP安全风险Top 10 》2013年版[2]等, 以及各种安全测试和培训工具，比如ZAP[3]和WebGoat[4]等。其中ZAP是一款简单易用并且免费的Web安全扫描工具，使用在针对网站渗透测试过程中的检测网站步骤中，并且很容易的和maven以及CI进行集成。由于它是由java开发的，所以也支持多种操作系统，比如Windows和MacOS等。而WebGoat是一个漏洞百出的J2EE Web应用程序，这些漏洞是故意设计用来演示Web应用程序安全课程的。这个应用程序提供了一个让用户可以真实去实践和学习的平台，让用户可以真实看到漏洞以及尝试去修复这个漏洞。</p>
+
+<p>除了上面介绍的免费工具和练习平台以外其实还有很多其他的免费和商业版本的工具和平台，比如w3af,Burp,metasploit,Google’s Gruyere等。我暂时还没有用过这些，有兴趣的同学可以自己去学习研究。最后如果大家想学习和使用这些工具，并练习Web的安全问题，比如OWASP Top 10，可以使用Maven公司的Web Security Dojo[5]就可以非常方便的进行。</p>
+
+<p>[1]https://www.owasp.org/index.php/Main_Page</p>
+
+<p>[2]https://www.owasp.org/index.php/Top_10_2013-Top_10</p>
+
+<p>[3]https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project</p>
+
+<p>[4]https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project</p>
+
+<p>[5]http://sourceforge.net/projects/websecuritydojo/</p>
+
+<h3 id="总结">总结</h3>
+
+<p>对于测试人员，需要了解各种测试方法，测试策略和测试工具，随着软件行业的迅速发展也需要更新它们，比如视觉感知测试, 移动测试，性能测试等等。但是随着敏捷开发和敏捷测试越来越普及，持续集成和持续部署的广泛使用，以及TDD的兴起，学习脚本将会成为测试人员的一门必修课。不要再犹豫了，更新自己吧，要知道不进则退哦。</p>
+:ET
