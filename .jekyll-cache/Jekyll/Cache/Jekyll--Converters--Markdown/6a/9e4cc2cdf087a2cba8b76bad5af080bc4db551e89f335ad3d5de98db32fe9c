@@ -1,4 +1,4 @@
-I"�><h1 id="摘要">摘要</h1>
+I"8?<h1 id="摘要">摘要</h1>
 <p>随着软件系统规模的持续增大，业务复杂度的持续增加，软件测试的复杂度也随之越来越大。而软件测试工作复杂度的直接体现就是测试用例编写、维护、执行和管理，所以编写易读、易维护和易管理的测试用例可以有效的降低测试工作的复杂度。本文主要系统的介绍了测试用例的几种经典编写和管理方法，包括每种的特点，适用场景以及实例。帮助不同的项目和团队，根据自己的情况选择适合的测试用例编写和管理方法，从而降低测试工作的复杂度，提高测试工作的效率。</p>
 
 <h2 id="1前言">1、前言</h2>
@@ -100,7 +100,7 @@
 
 <p>Excel管理实例图：</p>
 
-<p><img src="/Users/rliu/work/QSO/github/blog/assets/testcase/1.png" alt="image-20201107190711564" /></p>
+<p><img src="http://liuranthinking.com/assets/testcase/1.png" alt="image-20201107190711564" /></p>
 
 <h4 id="322方法二系统管理比如testlinkzephyr等">3.2.2、方法二：系统管理，比如TestLink，Zephyr等</h4>
 
@@ -108,11 +108,11 @@
 
 <p>Zephyr 执行管理实例图1：</p>
 
-<p><img src="/Users/rliu/work/QSO/github/blog/assets/testcase/2.png" alt="image-20201107190752698" /></p>
+<p><img src="http://liuranthinking.com/assets/testcase/2.png" alt="image-20201107190752698" /></p>
 
 <p>Zephyr 用例管理实例图2：</p>
 
-<p><img src="/Users/rliu/work/QSO/github/blog/assets/testcase/3.png" alt="image-20201107190805084" /></p>
+<p><img src="http://liuranthinking.com/assets/testcase/3.png" alt="image-20201107190805084" /></p>
 
 <h4 id="323方法三代码活文档自动化测试框架和代码版本工具比如cucumberrfsvn和git等">3.2.3、方法三：代码活文档，自动化测试框架和代码版本工具，比如Cucumber，RF，SVN和GIT等</h4>
 
@@ -120,7 +120,7 @@
 
 <p>Cucumber测试用例管理和活文档示例图:</p>
 
-<p><img src="/Users/rliu/work/QSO/github/blog/assets/testcase/4.png" alt="image-20201107190818930" /></p>
+<p><img src="http://liuranthinking.com/assets/testcase/4.png" alt="image-20201107190818930" /></p>
 
 <h4 id="324方法四系统活文档方法二结合方法三">3.2.4、方法四：系统活文档，方法二结合方法三</h4>
 
@@ -128,9 +128,11 @@
 
 <p>系统活文档架构图1:</p>
 
-<p><img src="/Users/rliu/work/QSO/github/blog/assets/testcase/5.png" alt="image-20201107190831037" /></p>
+<p><img src="http://liuranthinking.com/assets/testcase/5.png" alt="image-20201107190831037" /></p>
 
 <p>系统活文档架构图2:</p>
+
+<p><img src="http://liuranthinking.com/assets/testcase/6.png" alt="image-20201107190841178" /></p>
 
 <h2 id="4总结">4、总结</h2>
 
