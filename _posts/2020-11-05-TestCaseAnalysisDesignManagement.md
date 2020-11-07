@@ -142,7 +142,7 @@ Cucumber测试用例管理和活文档示例图:
 
 Cucumber活文档示例图:
 
-![image-20201107192045216](/Users/rliu/work/QSO/github/blog/assets/testcase/7.png)
+![image-20201107192045216](http://liuranthinking.com/assets/testcase/7.png)
 
 #### 3.2.4、方法四：系统活文档，方法二结合方法三
 
