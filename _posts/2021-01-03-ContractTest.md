@@ -26,15 +26,15 @@ categories: general update
 
 契约测试，顾名思义是基于契约或者使用契约来测试被测系统，其核心是契约，包括如何制定契约，如果更改契约以及如何使用契约等。首先定义契约必须有API的消费者（Consumer）和API的提供者（Provider）两端，其次契约还要包含这个API的Request和Response的定义细节，见下图：
 
-![img](http://twranman.github.io/assets/contractest.resources/1.png)
+![img](http://twranman.github.io/assets/contracttest.resources/1.png)
 
 然后再分别使用这个契约里面的内容生成测试用例来测试消费者者对于Web API消费代码和提供者对于Web API的实现代码，见下图：
 
-![img](http://twranman.github.io/assets/contractest.resources/2.png)
+![img](http://twranman.github.io/assets/contracttest.resources/2.png)
 
 所以契约测试即测试了一部分接口的功能，也测试一部分集成的功能，但是它却不能完全替代接口测试或者集成测试，因为一般情况下契约测试不会包含所有的业务场景，因此它们之间的关系应该如下图：
 
-![img](http://twranman.github.io/assets/contractest.resources/3.png)
+![img](http://twranman.github.io/assets/contracttest.resources/3.png)
 
 
 ### 契约测试存在一些的问题
@@ -56,7 +56,7 @@ categories: general update
 
 其次，当生成了大量的契约之后，一定要集中化的管理契约，并且最好能可视化出来，如下图：
 
-![img](http://twranman.github.io/assets/contractest.resources/4.png)
+![img](http://twranman.github.io/assets/contracttest.resources/4.png)
 
 最后将相应的自动化契约测试加入持续构建流水线中进行持续测试。
 

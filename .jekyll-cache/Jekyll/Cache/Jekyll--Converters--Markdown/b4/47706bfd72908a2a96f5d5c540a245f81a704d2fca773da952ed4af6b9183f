@@ -1,4 +1,4 @@
-I"�<p>随着Web系统的大规模发展，Web API已经成为了一种广泛使用的技术，再加上微服务和云系统的普及，Web API的数量呈几何增长。比如在一个大型Web系统中，各个子系统或者依赖系统之间一般都使用Web API来集成，从而导致开发不同子系统或者依赖服务的团队之间也存在不少问题。其中最大的四个问题是：</p>
+I"H<p>随着Web系统的大规模发展，Web API已经成为了一种广泛使用的技术，再加上微服务和云系统的普及，Web API的数量呈几何增长。比如在一个大型Web系统中，各个子系统或者依赖系统之间一般都使用Web API来集成，从而导致开发不同子系统或者依赖服务的团队之间也存在不少问题。其中最大的四个问题是：</p>
 
 <ul>
   <li>团队之间业务和技术集成沟通困难</li>
@@ -21,15 +21,15 @@
 
 <p>契约测试，顾名思义是基于契约或者使用契约来测试被测系统，其核心是契约，包括如何制定契约，如果更改契约以及如何使用契约等。首先定义契约必须有API的消费者（Consumer）和API的提供者（Provider）两端，其次契约还要包含这个API的Request和Response的定义细节，见下图：</p>
 
-<p><img src="../../.gitbook/assets/image%20%2814%29.png" alt="" /></p>
+<p><img src="http://twranman.github.io/assets/contracttest.resources/1.png" alt="img" /></p>
 
 <p>然后再分别使用这个契约里面的内容生成测试用例来测试消费者者对于Web API消费代码和提供者对于Web API的实现代码，见下图：</p>
 
-<p><img src="../../.gitbook/assets/image%20%286%29.png" alt="" /></p>
+<p><img src="http://twranman.github.io/assets/contracttest.resources/2.png" alt="img" /></p>
 
 <p>所以契约测试即测试了一部分接口的功能，也测试一部分集成的功能，但是它却不能完全替代接口测试或者集成测试，因为一般情况下契约测试不会包含所有的业务场景，因此它们之间的关系应该如下图：</p>
 
-<p><img src="../../.gitbook/assets/image%20%2810%29.png" alt="" /></p>
+<p><img src="http://twranman.github.io/assets/contracttest.resources/3.png" alt="img" /></p>
 
 <h3 id="契约测试存在一些的问题">契约测试存在一些的问题</h3>
 
@@ -51,7 +51,7 @@
 
 <p>其次，当生成了大量的契约之后，一定要集中化的管理契约，并且最好能可视化出来，如下图：</p>
 
-<p><img src="../../.gitbook/assets/image%20%2817%29.png" alt="" /></p>
+<p><img src="http://twranman.github.io/assets/contracttest.resources/4.png" alt="img" /></p>
 
 <p>最后将相应的自动化契约测试加入持续构建流水线中进行持续测试。</p>
 
