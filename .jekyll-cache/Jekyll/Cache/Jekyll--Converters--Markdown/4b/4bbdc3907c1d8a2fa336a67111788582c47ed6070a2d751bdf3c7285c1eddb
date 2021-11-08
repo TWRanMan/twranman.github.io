@@ -1,4 +1,4 @@
-I"+9<p><strong>本文首发于InfoQ：<a href="http://www.infoq.com/cn/articles/new-generation-server-testing-tool-gatling">http://www.infoq.com/cn/articles/new-generation-server-testing-tool-gatling</a></strong></p>
+I"�9<p><strong>本文首发于InfoQ：<a href="http://www.infoq.com/cn/articles/new-generation-server-testing-tool-gatling">http://www.infoq.com/cn/articles/new-generation-server-testing-tool-gatling</a></strong></p>
 
 <p>21世纪是云的世纪, 大规模云网已经出现了，而且在未来几年内会得到高速发展，从而使得基于云的系统也会越来越多。如果要开发一款高性能的云系统，服务器性能测试是一个必不可少的环节 。今天，就来介绍一款新一代服务器性能测试工具Gatling。</p>
 
@@ -62,42 +62,42 @@ Gatling适用的场景包括：测试需求经常改变，测试脚本需要经�
 
 <p>根据图3的配置，录制好的脚本存放在/Users/twer/work/gatling/user-files/simulations/Common/MyRecordedSimulation.scala。生成的部分脚本代码如下：</p>
 
-<p><code class="language-plaintext highlighter-rouge">
+<p>`
 class MyRecordedSimulation extends Simulation {
   val httpProtocol = http
-    .baseURL("http:// :10.17.7.3")
-    .acceptHeader("image/png,image/*;q=0.8,*/*;q=0.5")
-    .acceptEncodingHeader("gzip, deflate")
-    .acceptLanguageHeader("en-US,en;q=0.5")
-    .connection("keep-alive")
-    .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:22.0) Gecko/20100101 Firefox/22.0")
+    .baseURL(“http:// :10.17.7.3”)
+    .acceptHeader(“image/png,image/<em>;q=0.8,</em>/<em>;q=0.5”)
+    .acceptEncodingHeader(“gzip, deflate”)
+    .acceptLanguageHeader(“en-US,en;q=0.5”)
+    .connection(“keep-alive”)
+    .userAgentHeader(“Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:22.0) Gecko/20100101 Firefox/22.0”)
  val headers_1 = Map(
-    """Accept""" -&gt; """text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8""",
-    """If-None-Match""" -&gt; """"a3ef335152d5532e2297bd8ad288f3f9"""")
-  </code></p>
+    “"”Accept””” -&gt; “"”text/html,application/xhtml+xml,application/xml;q=0.9,</em>/*;q=0.8”””,
+    “"”If-None-Match””” -&gt; “”"”a3ef335152d5532e2297bd8ad288f3f9””””)
+  `</p>
 
 <p><strong>录制代码段1</strong></p>
 
-<p><code class="language-plaintext highlighter-rouge">
-  .exec(http("request_21")
-    .get("""/customer/images/new?app_dialog=true&amp;dialog=true""")
+<p>`
+  .exec(http(“request_21”)
+    .get(“”“/customer/images/new?app_dialog=true&amp;dialog=true”””)
     .headers(headers_18))
   .pause(6)
-  .exec(http("request_22")
-    .get("""/customer/images?_=1374400463122""")
+  .exec(http(“request_22”)
+    .get(“”“/customer/images?_=1374400463122”””)
     .headers(headers_19))
   .pause(165 milliseconds)
-  .exec(http("request_23")
-    .get("""/Users/twer/work/gatling/user-files/simulations/testdata/test1.png""")
+  .exec(http(“request_23”)
+    .get(“”“/Users/twer/work/gatling/user-files/simulations/testdata/test1.png”””)
     .headers(headers_20)
     .check(status.is(500)))
   .pause(2)
-  .exec(http("request_24")
-    .get("""/customer/images?view=list"""))
+  .exec(http(“request_24”)
+    .get(“”“/customer/images?view=list”””))
   .pause(86 milliseconds)
 ……
 setUp(scn.inject(atOnce(1 user))).protocols(httpProtocol)
-</code></p>
+`</p>
 
 <p><strong>录制代码段2</strong></p>
 
@@ -118,10 +118,10 @@ setUp(scn.inject(atOnce(1 user))).protocols(httpProtocol)
   <li>对于录制代码段2，需要将测试场景和测试控制分开，每一个测试场景使用一个文件来保存， 代码段2所示的场景使用“UploadImageScenario.scala”来保存。主控脚本也需要分离出来存入“MainSimulation.scala”，通过调用不同的测试场景的脚本，从而可以复用HTTP的配置选项，比如：</li>
 </ul>
 
-<p><code class="language-plaintext highlighter-rouge"> 
+<p>` 
 val httpProtocol = http
-    .baseURL("http://10.17.7.3")
-</code></p>
+    .baseURL(“http://10.17.7.3”)
+`</p>
 
 <p>其次，我们还需要增加多用户的支持：</p>
 
@@ -129,62 +129,62 @@ val httpProtocol = http
   <li>多用户数据的读入，其中“user_credentials.csv”存储的就是用户名和密码</li>
 </ul>
 
-<p><code class="language-plaintext highlighter-rouge"> 
-.feed(csv("user_credentials.csv"))
-  .exec(http("request_login")
-    .post("""/customer/login""")
-    .param("""username""", """${username}""")
-    .param("""password", "${password}""")
-  </code></p>
+<p>` 
+.feed(csv(“user_credentials.csv”))
+  .exec(http(“request_login”)
+    .post(“”“/customer/login”””)
+    .param(“"”username”””, “””${username}”””)
+    .param(“"”password”, “${password}”””)
+  `</p>
 
 <ul>
   <li>设置多用户的值。由于我们使用的是虚拟机，所以经过测试，确定为400用户并发。</li>
 </ul>
 
-<p><code class="language-plaintext highlighter-rouge">
+<p>`
 setUp(LoginScenario.loginScn.inject(ramp(400 users) over(60 seconds))).protocols(httpProtocol)
-</code></p>
+`</p>
 
 <p>最后，我们还要增加检测点，使用check，find，status等函数进行检测，下面的代码检测了用户登出的时候HTTP Response Status是否为302：</p>
 
-<p><code class="language-plaintext highlighter-rouge">
-exec(http("request_logout")
-  .get(("""/customer/logout""")
+<p>`
+exec(http(“request_logout”)
+  .get((“”“/customer/logout”””)
   .headers(headers_logout)
   .check(status.is(302)))
- </code></p>
+ `</p>
 
 <p>当然，如果测试人员熟悉Gatling DSL API，我们也可以不用录制代码再进行重构，而是直接设计测试系统并进行测试案例的开发。</p>
 
 <p>项目采取了敏捷方法进行开发，所以系统的一些功能在开发过程中会出现频繁改动，导致测试场景和测试脚本也会随之发生改变，因此，测试脚本的可读性和可维护性对于我们来说就非常重要。当某个功能改变之后，使用Gatling脚本就能十分方便的进行阅读和重构。比如对于添加user的功能，第一版只需要能添加user即可（见<strong>添加user代码1</strong>），而在下一版中，则要求在添加user时可以选择该user具有那些权限（见<strong>添加user代码2</strong>），代码如下：</p>
 
-<p><code class="language-plaintext highlighter-rouge">
- .exec(http("request_add_user")
-  .post("""/customer/users""")
+<p>`
+ .exec(http(“request_add_user”)
+  .post(“”“/customer/users”””)
   .headers(headers_user)
-  .param("""utf8""", """✓""")
-  .param("""user[username]""", """user2""")
-  .param("""user[email]""", """user@gmail.com""")
-  .param("""user[password]""", """user2""")
-  .param("""user[password_confirmation]""", """user2""")
- </code></p>
+  .param(“"”utf8”””, “”“✓”””)
+  .param(“"”user[username]”””, “"”user2”””)
+  .param(“"”user[email]”””, “"”user@gmail.com”””)
+  .param(“"”user[password]”””, “"”user2”””)
+  .param(“"”user[password_confirmation]”””, “"”user2”””)
+ `</p>
 
 <p><strong>添加user代码1</strong></p>
 
-<p><code class="language-plaintext highlighter-rouge">
-.exec(http("request_add_user")
-  .post("""/customer/users""")
+<p>`
+.exec(http(“request_add_user”)
+  .post(“”“/customer/users”””)
   .headers(headers_user)
-  .param("""utf8""", """✓""")
-  .param("""user[username]""", """user2""")
-  .param("""user[email]""", """user@gmail.com""")
-  .param("""user[password]""", """user2""")
-  .param("""user[password_confirmation]""", """user2""")
-  .param("""user[plugins][]""", """customer_dashboard""")
-  .param("""user[plugins][]""", """customer_files""")
-  .param("""user[plugins][]""", """customer_images""")
-  .param("""user[plugins][]""", """customer_pages"""))
-</code></p>
+  .param(“"”utf8”””, “”“✓”””)
+  .param(“"”user[username]”””, “"”user2”””)
+  .param(“"”user[email]”””, “"”user@gmail.com”””)
+  .param(“"”user[password]”””, “"”user2”””)
+  .param(“"”user[password_confirmation]”””, “"”user2”””)
+  .param(“"”user[plugins][]”””, “"”customer_dashboard”””)
+  .param(“"”user[plugins][]”””, “"”customer_files”””)
+  .param(“"”user[plugins][]”””, “"”customer_images”””)
+  .param(“"”user[plugins][]”””, “"”customer_pages”””))
+`</p>
 
 <p><strong>添加user代码2</strong></p>
 
