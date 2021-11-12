@@ -13,7 +13,7 @@ categories: general update
 
 测试左移并不是全新的测试方法，而且已经出现了很久了，早在2001年，Larry Smith就在他文章《Shift-Left Testing》中就提出了测试左移的概念和相应的实践。测试左移最主要的方法就是将所有测试相关的工作左移到研发过程中的某些阶段里面去，比如将单元测试左移到编写代码的过程中，将用户验收功能测试相关的一些工作左移到用户需求分析和设计的阶段去做等，基于V字模型的测试左移工作可以见下图：
 
-![img](/Users/rliu/work/QSO/github/blog/assets/LeftShiftTesting/1.png)
+![img](http://liuranthinking.com/assets/LeftShiftTesting/1.png)
 
 ### 为什么要做测试左移
 
@@ -37,7 +37,7 @@ categories: general update
 
 对于开发人员，测试左移中最为重要的实践则是TDD（包括ATDD和UTDD）。如果想高效的实施TDD，是需要统一实施ATDD和UTDD，通过ATDD有效的传输业务知识和验收条件，再通过UTDD完成符合验收条件代码设计和代码编写。具体的实践步骤见下图：
 
-![img](/Users/rliu/work/QSO/github/blog/assets/LeftShiftTesting/2.png)
+![img](http://liuranthinking.com/assets/LeftShiftTesting/2.png)
 
 
 由此可见，ATDD和UTDD可以帮助开发人员梳理和理解需求，还可以帮助开发人员获得更好的代码设计，并且可以有效的减少返工（Rework），然后获得大量有效的测试用例和自动化测试代码，最后可以实现快速反馈，提高软件内在质量，从而提升软件的研发效能。
