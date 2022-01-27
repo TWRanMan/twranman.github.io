@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "洞见101之测试左移实践"
-date:   2021-08-18 00:00:01
+date:   2021-11-18 00:00:01
 categories: general update
 ---
 
