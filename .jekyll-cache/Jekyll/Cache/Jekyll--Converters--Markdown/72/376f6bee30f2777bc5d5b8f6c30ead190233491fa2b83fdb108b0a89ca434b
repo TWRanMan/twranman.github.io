@@ -1,0 +1,193 @@
+I":<h2 id="前提">前提</h2>
+
+<p>在前一篇文章《契约测试理论篇》中，详细阐述了契约测试解决的问题，工作原理以及主要的一些实践等。但是如何真正的实现一套契约测试，仍然需要了解和学习更多细节步骤才能完成。现在我们就来看如何实现一套完整的契约测试。</p>
+
+<p>由于契约测试的特殊性，很难手动执行，所以一般情况下它都是通过自动化的方式来实施。业界有多个开源免费的契约测试自动化框架，其中最为常用的就是Pact 和 Spring Cloud Contract，并且契约测试也分为基于消费者驱动的契约测试（Consumer Driven Contract Test，即CDCT）和基于提供者驱动的契约测试（Provider Driven Contract Test，即PDCT）。其中提供者驱动的契约测试本质上和消费者驱动的契约测试的区别只是契约的制定和修改的流程，以及消费者端代码实现会有所区别，其他的基本是一样的。</p>
+
+<p>假设一个基于前后端分离的和微服务的在线支付系统，其中微服务的数量有10多个，每个服务也有10多个Web API，并且所有的后端的服务都通过BFF（Back For Frontend）层来统一给前端应用提供服务，其中每个微服务是一个独立的服务团队进行开发和维护，而BFF层由前端。在这种项目中我们首先需要制定测试策略，在测试策略中就需要确定是不是需要做契约测试，如果确定了需要做契约测试，那么需要通过以下四步来实施契约测试：1，确定契约测试的范围和框架；2，确定契约测试的流程和规则；3，编写契约测试的代码并执行测试；4，管理契约测试。如果能有效的实施这四个步骤，那么契约便能发挥其功效，高效的保证大量微服务之间的交互正确性。</p>
+
+<h2 id="实践步骤">实践步骤</h2>
+
+<h3 id="1-确定契约测试的范围和框架">1. 确定契约测试的范围和框架</h3>
+
+<p>在这个假设的项目中，首先根据测试测试策略，确定了需要实施契约测试。然后需要确定契约测试的范围。理论上契约需要所有的API消费端和提供端都实施，但是由于本项目中BFF层是前端开发团队自己实施的，所以通过讨论前端团队可以内部在开发的时候保证统一编写和修改前端应用和BFF的相关代码。所以他们以BFF层作为消费端去驱动后端相关的所有微服务。然后又和后端的所有微服务团队讨论，他们同意编写契约测试，但是他们有些服务调用了第三方的其他服务，而这些服务是不属于项目开发，维护等可控制范围，所以无法实施契约。因此项目的契约测试实施范围为BFF与微服务之间，以及微服务与微服务之间。如果项目中前端应用和BFF分别是由两个不同的团队负责开发，那么它们两个也应该实施契约测试。</p>
+
+<p>契约测试实施图：</p>
+
+<p>​                 <img src="https://docimg5.docs.qq.com/image/M27hr-XyysShfOtRPaaoMA.png?w=1280&amp;h=557.1379897785349" alt="img" /></p>
+
+<p>其次Pact和消费者驱动的契约测试是最为常用的，并且本项目BFF层是基于NodeJS，而后端的微服务是基于Spring，所以经过讨论最终选择了Pact作为契约测试自动化框架，因为需要同时支持JavaScript和Java两门语言，并且可以通过Pact Broker提供微服务的调用关系图。而Spring Cloud Contract作为后起之秀，还有一些地方需要改进，比如只支持Java，没有Pack Broker这样的集中化，图形化的契约中心化管理系统。</p>
+
+<h3 id="2-确定契约测试的流程和规则">2. 确定契约测试的流程和规则</h3>
+
+<p>在确定了契约测试范围和框架后，就需要制定契约测试的流程和规则，包括如何制定契约，谁来制定契约，如何变更契约，契约测试失败如何处理等等，并且还要保证每个团队都必须同意并遵守此流程和规则。 首先是契约的制定，业务分析（Business Analyst）人员需要更具产品人员（Product Owner）提出来的需求确定前端系统上需要获取，展示或者给后端提供哪些数据，并与前端开发人员进行沟通。然后前端开发人员通过快速简单设计一版API，并和后端微服务的开发人员进行讨论后，最终设计出来两边都认同的第一版API契约。然后前端系统开发人员就在BFF层基于这个契约编写消费者端（Customer）的契约测试，并且后端微服务开发者也基于这个契约编写提供端（Provider）的契约测试。</p>
+
+<p>一般情况下第一版API的契约在软件系统开发过程中都需要进行更改。如果任意端对API的契约进行了更改，需要人工及时告知另外一端契约发生了更改，然后一起讨论并确认契约的变更，并更改相应的契约，双方再各自去更改自己的契约测试。如果一端由于各种原因而没有通知另外一方端，强行更改自己端的契约测试或者契约管理服务器上的契约文件，那么另外一端会在下次它执行契约测试的时候失败，从而实现了强制性的自动化通知。这个时候另外一端发现契约测试失败，就会查找原因，如果发现是由于契约文件的更改而造成的，就需要发起一次变更讨论来确定契约的变更，从而第一时间发现了API交互的问题。</p>
+
+<p>由于本项目选择消费者驱动契约测试的方式，并基于Pact自动化测试框架来实施，所以契约文件是由消费者的契约测试代码自动化生成并给提供端，并且契约文件必须由消费端进行更改，提供端不能更改。因此如果消费端或者提供端需要更改契约文件，都需要两端经过讨论和协商后统一由消费端来更改契约文件。</p>
+
+<p>基于消费者驱动契约测试的契约变更流程图：</p>
+
+<p>​                 <img src="https://docimg6.docs.qq.com/image/ImN12hdbgeBvGq7uQJDG4Q.png?w=1280&amp;h=286.60341555977226" alt="img" /></p>
+
+<h3 id="3-编写契约测试的代码并执行测试">3. 编写契约测试的代码并执行测试</h3>
+
+<p>编写契约测试并不复杂，并且相对于编写单元测试，它开发的工作量是比较少的。并且由于契约测试都是基于mock的方式来，所以稳定性特别高，一般出现问题都是因为契约被改变，或者业务代码的改变导致无法满足契约了。</p>
+
+<p>Consumer端：
+​                 <img src="https://docimg7.docs.qq.com/image/iTk9ADmWjxeWv4yLTDAcpg.png?w=1280&amp;h=222.83400809716602" alt="img" /></p>
+
+<p>在假设项目中，如果编写BFF和ServiceA之间的契约测试，只需要在BFF层中，根据确定好的契约直接编写契约测试即可，不需要再手动建立什么mock服务，因为pact会在每次执行契约测试的自动帮你建立一个提供端的mock服务。并且每次契约测试完成后就会生成一个契约文件，然后放到一个统一的存储契约文件的地方。测试示例代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const provider = new Pact({
+    consumer: "Consumer Example",
+    provider: "Provider Example",
+})
+
+describe("Consumer Test", () =&gt; {
+    before(() =&gt;
+        provider.addInteraction({
+            state: "TestCase 1",
+            uponReceiving: "a request to provider",
+            withRequest: {
+            method: "POST",
+            path: "/provider",
+            body: like(responseBody),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        },
+        willRespondWith: {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            body: like(responseBody),
+            },
+        })
+    )
+    it("Test case", done =&gt; {
+        expect(callProviderService()).to.eventually.be.fulfilled.notify(done)
+    })
+})
+</code></pre></div></div>
+
+<p>如果编写ServiceA 和ServiceC之间的契约测试，（假设ServiceA调用ServiceC）同样只需要在ServiceA中编写契约测试代码。测试示例代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@RunWith(SpringRunner.class)
+@SpringBootTest
+public class ConsumerTest extends ConsumerPactTest {
+@Autowired
+ProviderService providerService;
+@Override
+@Pact(provider="Provider Example", consumer="Consumer Example")
+public RequestResponsePact createPact(PactDslWithProvider builder) {
+    Map&lt;String, String&gt; headers = new HashMap&lt;String, String&gt;();
+    headers.put("Content-Type", "application/json;charset=UTF-8");
+    return builder
+        .given("TestCase 1")
+        .uponReceiving("a request to provider")
+            .path("/provider")
+            .method("POST")
+            .body(requestBody)
+        .willRespondWith()
+            .headers(headers)
+            .status(200)
+            .body(resonseBody)
+    .toPact();
+    }
+@Override
+protected void runTest(MockServer mockServer, PactTestExecutionContext context) {
+    providerService.setBackendURL(mockServer.getUrl());
+    providerService.callProviderService();
+    }
+}
+</code></pre></div></div>
+
+<p>Provider端:                  <img src="https://docimg8.docs.qq.com/image/1UaZHgL8Jpy55zLGjOf7zw.png?w=1280&amp;h=179.38883034773446" alt="img" /></p>
+
+<p>其次在服务的提供端，编写契约测试要稍微复杂一点，首先要从统一存储契约文件的地方获取到契约文件，并且还需要固定测试数据，从而需要mock测试数据和mock被测服务的依赖服务，从而保证每次契约测试中API返回的Response Body的Shcema都不会改变。本项目中使用Wiremock来Mock被测试服务的依赖服务，使用Spring MVC来启动被测服务。</p>
+
+<p>测试示例代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@SpringBootTest(webEnvironment = RANDOM_PORT)
+@Provider("Provider Example") // This name should match that defined on the consumer side
+@PactBroker(url = "http://localhost:9292")
+@AutoConfigureWireMock(port = 8979) // This port should match that defined on the remote call
+public class ProviderTest {
+    @LocalServerPort
+    private int localPort;
+    @Value("classpath:mockTestData.json")
+    private Resource mockTestData;
+
+    @BeforeEach
+    void before(PactVerificationContext context) {
+        context.setTarget(new HttpTestTarget("localhost", localPort));
+        System.setProperty("pact.verifier.publishResults", "true");
+    }
+
+    @AfterEach
+    void tearDown() {
+        removeAllMappings();
+    }
+
+    @TestTemplate
+    @ExtendWith(PactVerificationSpringProvider.class)
+    void pactVerificationTestTemplate(PactVerificationContext context) {
+        context.verifyInteraction();
+    }
+
+    @State(value = {"TestCase 1"})
+    void hasAnimalsStates() throws IOException {
+        InputStream inputStream = mockTestData.getInputStream();
+        stubFor(
+            post("/provider")
+                .willReturn(
+                    aResponse()
+                        .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
+                        .withBody(inputStream.readAllBytes())
+                )
+            );
+        inputStream.close();
+    }
+}
+</code></pre></div></div>
+
+<h3 id="4-管理契约测试">4. 管理契约测试</h3>
+
+<p>完成了契约文件的设计，确定了契约测试的流程，编写完了契约测试的代码，接下来就需要对契约文件进行有效的管理、展示和持续执行。</p>
+
+<ul>
+  <li>
+    <h5 id="集中化管理契约">集中化管理契约</h5>
+  </li>
+</ul>
+
+<p>契约文件必须集中化管理，因为只有集中化管理，才能在一端更改了契约之后，另外一端通过契约测试的失败而知道契约测试被更改了，从而实现自动化的触发变更流程。</p>
+
+<p>其次集中化管理契约文件有两种方法：1， 通过代码库进行管理；2，通过Pact Broker管理系统进行管理。首先通过代码库进行管理，即将契约文件统一放在公用的一个代码目录或者一个代码库中。其次通过Pact Broker进行管理，则是将契约文件通过代码的方式上传到Pact Broker进行管理。在本项目中，在消费端的契约测试代码里面，通过Pact的Maven或者Gradle插件则可以配置好Pact Broker的服务器地址。然后执行消费端的契约测试，如果契约测试成功通过了，此插件则可以把生成后的契约文件自动的上传到Pact Broker里面。</p>
+
+<p>Broker流程图</p>
+
+<p>​                 <img src="https://docimg8.docs.qq.com/image/IAIPSrQRGNaSWSwh1yCJDQ.png?w=1280&amp;h=976.4102564102565" alt="img" /></p>
+
+<ul>
+  <li>
+    <h5 id="可视化展示服务的依赖和调用链">可视化展示服务的依赖和调用链</h5>
+  </li>
+</ul>
+
+<p>因为微服务的数量比较多，所以为了方便管理和维护，需要一个可视化的微服务依赖和调用链条图。而Pact Broker整个提供这个功能。只需要将所有微服务的契约文件上传到Pact Broker中，就可以通过其Web系统查看到所有微服务的依赖和调用链。</p>
+
+<ul>
+  <li>
+    <h5 id="自动化契约测试并加入持续构建流水线中">自动化契约测试并加入持续构建流水线中</h5>
+  </li>
+</ul>
+
+<p>将契约测试直接加入到每次代码提交后的构建流水线中，可以有效的发现和防止破坏契约的业务代码，或者被另外一端破坏的契约，从而在第一时间发现这样的问题，而不是等到系统部署到测试系统后，通过回归测试发现这些问题。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>我在不少项目中都尝试过实施契约测试，但是真正实施成功的并不多，主要原因还是规模和痛点不够大，从而导致团队觉得没有必要做，或者觉得做了收益比投入少。而成功的一般的都是团队人员足够痛，或者经历过大型多团队项目中服务改变等各种痛点，从而导致他们解决自己的痛点而主动实施契约测试，但是前提是他们都知道契约测试。所以要成功实施契约都是有两个主要的前提条件：1，团队对于相关问题（见理论篇）足够痛，2，团队懂契约测试。在这种情况下，团队才可能愿意主动实施契约测试，才能成功的实施契约测试。所以首先是要让开发团队懂契约测试，比如契约测试能解决什么问题，实施流程，相关测试框架等，然后等待团队无法忍受相关痛点后，成功的实施契约测试就可以水到渠成了。</p>
+:ET
