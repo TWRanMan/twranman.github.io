@@ -22,7 +22,7 @@ categories: autotest update
 
 契约测试实施图：
 
-​                 ![img](https://docimg5.docs.qq.com/image/M27hr-XyysShfOtRPaaoMA.png?w=1280&h=557.1379897785349)        
+​                 ![img](http://liuranthinking.com/assets/contracttest/1.png)        
 
 其次Pact和消费者驱动的契约测试是最为常用的，并且本项目BFF层是基于NodeJS，而后端的微服务是基于Spring，所以经过讨论最终选择了Pact作为契约测试自动化框架，因为需要同时支持JavaScript和Java两门语言，并且可以通过Pact Broker提供微服务的调用关系图。而Spring Cloud Contract作为后起之秀，还有一些地方需要改进，比如只支持Java，没有Pack Broker这样的集中化，图形化的契约中心化管理系统。
 
@@ -36,14 +36,14 @@ categories: autotest update
 
 基于消费者驱动契约测试的契约变更流程图：
 
-​                 ![img](https://docimg6.docs.qq.com/image/ImN12hdbgeBvGq7uQJDG4Q.png?w=1280&h=286.60341555977226)        
+​                 ![img](http://liuranthinking.com/assets/contracttest/2.png)        
 
 ### 3. 编写契约测试的代码并执行测试
 
 编写契约测试并不复杂，并且相对于编写单元测试，它开发的工作量是比较少的。并且由于契约测试都是基于mock的方式来，所以稳定性特别高，一般出现问题都是因为契约被改变，或者业务代码的改变导致无法满足契约了。
 
 Consumer端：
-​                 ![img](https://docimg7.docs.qq.com/image/iTk9ADmWjxeWv4yLTDAcpg.png?w=1280&h=222.83400809716602)        
+​                 ![img](http://liuranthinking.com/assets/contracttest/3.png)        
 
 在假设项目中，如果编写BFF和ServiceA之间的契约测试，只需要在BFF层中，根据确定好的契约直接编写契约测试即可，不需要再手动建立什么mock服务，因为pact会在每次执行契约测试的自动帮你建立一个提供端的mock服务。并且每次契约测试完成后就会生成一个契约文件，然后放到一个统一的存储契约文件的地方。测试示例代码如下：
 
@@ -115,7 +115,7 @@ protected void runTest(MockServer mockServer, PactTestExecutionContext context) 
 }
 ```
 
-Provider端:                  ![img](https://docimg8.docs.qq.com/image/1UaZHgL8Jpy55zLGjOf7zw.png?w=1280&h=179.38883034773446)        
+Provider端:                  ![img](http://liuranthinking.com/assets/contracttest/4.png)        
 
 其次在服务的提供端，编写契约测试要稍微复杂一点，首先要从统一存储契约文件的地方获取到契约文件，并且还需要固定测试数据，从而需要mock测试数据和mock被测服务的依赖服务，从而保证每次契约测试中API返回的Response Body的Shcema都不会改变。本项目中使用Wiremock来Mock被测试服务的依赖服务，使用Spring MVC来启动被测服务。
 
@@ -179,7 +179,7 @@ public class ProviderTest {
 
 Broker流程图
 
-​                 ![img](https://docimg8.docs.qq.com/image/IAIPSrQRGNaSWSwh1yCJDQ.png?w=1280&h=976.4102564102565)        
+​                 ![img](http://liuranthinking.com/assets/contracttest/5.png)        
 
 - ##### 可视化展示服务的依赖和调用链
 
