@@ -116,7 +116,7 @@ categories: general update
 
 Excel管理实例图：
 
-![image-20201107190711564](http://liuranthinking.com/assets/testcase/1.png)
+![image-20201107190711564](http://twranman.github.io/assets/testcase/1.png)
 
 #### 3.2.2、方法二：系统管理，比如TestLink，Zephyr等
 
@@ -124,13 +124,13 @@ Excel管理实例图：
 
 Zephyr 执行管理实例图1：
 
-![image-20201107190752698](http://liuranthinking.com/assets/testcase/2.png)
+![image-20201107190752698](http://twranman.github.io/assets/testcase/2.png)
 
 
 
 Zephyr 用例管理实例图2：
 
-![image-20201107190805084](http://liuranthinking.com/assets/testcase/3.png)
+![image-20201107190805084](http://twranman.github.io/assets/testcase/3.png)
 
 #### 3.2.3、方法三：代码活文档，自动化测试框架和代码版本工具，比如Cucumber，RF，SVN和GIT等
 
@@ -138,11 +138,11 @@ Zephyr 用例管理实例图2：
 
 Cucumber测试用例管理和活文档示例图:
 
-![image-20201107190818930](http://liuranthinking.com/assets/testcase/4.png)
+![image-20201107190818930](http://twranman.github.io/assets/testcase/4.png)
 
 Cucumber活文档示例图:
 
-![image-20201107192045216](http://liuranthinking.com/assets/testcase/7.png)
+![image-20201107192045216](http://twranman.github.io/assets/testcase/7.png)
 
 #### 3.2.4、方法四：系统活文档，方法二结合方法三
 
@@ -150,11 +150,11 @@ Cucumber活文档示例图:
 
 系统活文档架构图1:
 
-![image-20201107190831037](http://liuranthinking.com/assets/testcase/5.png)
+![image-20201107190831037](http://twranman.github.io/assets/testcase/5.png)
 
 系统活文档架构图2:
 
-![image-20201107190841178](http://liuranthinking.com/assets/testcase/6.png)
+![image-20201107190841178](http://twranman.github.io/assets/testcase/6.png)
 
 ## 4、总结
 

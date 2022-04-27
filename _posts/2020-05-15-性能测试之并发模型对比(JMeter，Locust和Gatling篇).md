@@ -17,14 +17,14 @@ JMeter是三个工具中最早发布的性能测试工具，并且由于早期�
 
 **多线程并发模型图**
 
-![](http://liuranthinking.com/assets/perftoolmodels/image1.png)
+![](http://twranman.github.io/assets/perftoolmodels/image1.png)
 
 #### Locust
 Locust为了避免多线程存在的各种问题，它选择了消息循环模型（EventLoop）和Python语言来开发。EventLoop模型最大的优势就是在一个线程里面可以完成大量的并发，从而避免了多线程带来的各种问题。与此同时它带来的问题就是无法同时使用多核处理器的多个核，从而无法充分使用硬件资源。不过可以通过Locust提供了分布式的方法来使用多核。其次Locust的并发模型里面并发用户的数据只能配置一个固定值，并且在Locust运行的过程中是不能改变的。这个特性与JMeter和Gatling都不一样，因为JMeter和Gatling都是可以运行的过程中改变并发用户数量的。
 
 **消息循环并发模型图**
 
-![](http://liuranthinking.com/assets/perftoolmodels/image2.png)
+![](http://twranman.github.io/assets/perftoolmodels/image2.png)
 
 #### Gatling
 Gatling是三个工具中发布最晚的一款，所以它选择Akka(Actor)模型和Scala语言来开发。由于Actor模型的轻量和高并发性，再加上Scala语言基于JVM，所以Gatling的并发模型结合了JMeter和Locust的优势，其尽可能地避免了多线程存在的一些问题，并可以充分使用硬件资源：多核。其次Actor模型核心是基于消息传递的，并且使用每个虚拟用户基于一个Actor就可以做到相对独立，并通过消息传递进行通信。所以它具有和消息循环模型同样在单线程里面进行高并发的能力。并且它还可以在运行时轻松地动态增加和减少并发虚拟用户数（Actor）。
@@ -32,7 +32,7 @@ Gatling是三个工具中发布最晚的一款，所以它选择Akka(Actor)模�
 
 **Actor并发模型图**
 
-![](http://liuranthinking.com/assets/perftoolmodels/image3.png)
+![](http://twranman.github.io/assets/perftoolmodels/image3.png)
 
 ### 总结
 JMeter，Locust和Gatling使用了三种典型的并发模型，从而决定了其不同的基础特性。而充分了解这些特性，可以更好地帮助我们选择适合自己项目的性能测试工具，从而避免一些后期的一些问题。如果不想选择已有的这些开源测试工具，想自己重新开发，选择并发模型也是非常重要的一步。

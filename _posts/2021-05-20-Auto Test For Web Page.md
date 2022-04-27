@@ -10,20 +10,20 @@ categories: performance update
 
 ### Lighthouse
 Lighthouse 是 Google 开发的一款分析 Web 应用和 Web 页面的性能的工具。除了性能，它还可以分析 Web 页面的 Accessibility，各种页面最佳实践（Best Practices），SEO 以及 Progressive Web App 的能力，对它们打分，并展示出每一项基础项目的数据和结果，如下图：
-![img](http://liuranthinking.com/assets/autotestforwebpage/1.png)
+![img](http://twranman.github.io/assets/autotestforwebpage/1.png)
 
-其中对于性能的分数，它是根据 6 个不同的性能指标计算而得到的，如下图：![img](http://liuranthinking.com/assets/autotestforwebpage/2.png)
+其中对于性能的分数，它是根据 6 个不同的性能指标计算而得到的，如下图：![img](http://twranman.github.io/assets/autotestforwebpage/2.png)
 而这 6 个性能指标又来于 Chrome DevTool 中的 Performance，点击上图中的“View Original Trace”可以跳转到 Performance，见下图：
 
-![img](http://liuranthinking.com/assets/autotestforwebpage/3.png)
+![img](http://twranman.github.io/assets/autotestforwebpage/3.png)
 所以，Lighthouse 中的 Performance 所计算的分数是真实性能分数，通过这个分数可以了解到这个页面整体的性能情况。由于 Lighthouse 除了支持通过 Chrome DevTool 和 Chrome Extension 的手动的方式来使用以外，还可以通过 Node CLI 和 Node Module 的方式来使用。这种方式特别适合在集成流水线中使用，用以持续测试前端页面的性能，并检测页面性能随着开发而产生的变化趋势，从而尽早地发现前端页面的性能问题。
 
 ### Cypress和Lighthouse
 实施前端页面自动化性能测试最好的方式，就是将它嵌入 Web App 的功能或者端对端自动化测试过程中，当功能和端对端自动化测试执行的过程中就执行了自动化性能测试。Cypress 是当前最为流行的 Web 自动化测试框架之一，它有一款插件 Cypress-Audit 就很好地集成了 Lighthouse 的功能。它能在 Cypress 的自动化测试运行的过程中，针对每张测试过的页面生成 Lighthouse 的性能分数，并展示在 Cypress 的测试报告中。而且还可以针对这些分数做断言，使得当某个页面的分数低于某个阈值的时候，持续构建流水线就会中断，从而通知开发人员或者测试人员对其进行性能分析，从而发现可能存在的性能问题。首先需要在 Cypress 的自动化测试代码中，配置这 6 个性能指标的阈值，比如配置 First Contentful Paint 的阈值时间为 1000 毫秒，配置代码如下:
-![img](http://liuranthinking.com/assets/autotestforwebpage/4.png)
+![img](http://twranman.github.io/assets/autotestforwebpage/4.png)
 然后在执行 Cypress 自动化测试的过程中，某个页面的指标不满足配置好的阈值，比如 First Contentful Paint 的时间超过了 1000 毫秒，测试就会失败，其测试报告如下图：
 
-![img](http://liuranthinking.com/assets/autotestforwebpage/5.png)
+![img](http://twranman.github.io/assets/autotestforwebpage/5.png)
 然后可以手动在使用 Chrome 浏览器中的 LightHouse 和 Performance DevTools 去分析其性能问题，并通过优化将这个 First Contentful Paint 的时间降到 1000 毫秒以下，其测试就会通过。或者通过分析得知无法提高这个指标，将阈值时间改到 2000 毫米，测试也会通过。
 
 ### 总结

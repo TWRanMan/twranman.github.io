@@ -25,7 +25,7 @@ categories: general update
 
 **测试服务化的一个示例图：**
 
-![](http://liuranthinking.com/assets/Serverless-Test-Service/1.png)
+![](http://twranman.github.io/assets/Serverless-Test-Service/1.png)
 
 
 ### Serverless架构介绍
@@ -34,7 +34,7 @@ categories: general update
 
 **服务架构的比较图：**：
 
-![](http://liuranthinking.com/assets/Serverless-Test-Service/2.png)
+![](http://twranman.github.io/assets/Serverless-Test-Service/2.png)
 
 
 ### 基于Serverless的测试服务化
@@ -43,7 +43,7 @@ categories: general update
 
 **基于Serverless的测试服务化示例图：**
 
-![](http://liuranthinking.com/assets/Serverless-Test-Service/3.png)
+![](http://twranman.github.io/assets/Serverless-Test-Service/3.png)
 
 
 虽然基于Serverless的测试服务化具有这么多优势，但是这些优势仅仅是对于服务使用方，而其复杂度是其本身的设计和实现。Serverless架构中，最为常用的就是容器技术，而容器技术不仅是自动伸缩技术的基础，也是自动化测试框架/工具的天然沙盒，从而可以高效的隔离和管理包含不同测试框架/工具的执行环境。其次，由于测试的大规模化，需要大量的测试资源，比如测试运行环境，测试数据服务等等，则需要通过Server/Worker的方式来设计架构，从而实现对于资源的动态扩展。服务接口方面，最为实用并简单的接口则是Web API中的RESTFul API。通过这样的Web API，可以有效的对测试服务提供的测试能力进行编程和定制化。最后由于测试服务的多样化和可定制化，则需要提供一个强大插件系统，使得不同的测试服务可以互相隔离并且分别定制化。为了满足这些需求，则需要一个测试的技术架构，如下：
@@ -51,7 +51,7 @@ categories: general update
 
 **技术架构图：**
 
-![](http://liuranthinking.com/assets/Serverless-Test-Service/4.png)
+![](http://twranman.github.io/assets/Serverless-Test-Service/4.png)
 
 
 上面是一个高层的技术架构设计图，通过它可以见到介于Serverless的测试服务化的全貌。对于其中比较重要的自动化测试，下图是一个自动化测试在基于Serverless的测试服务化系统中的工作流程示意图。其中通过对于三个服务能力的使用，可以让同一套流程实现各种不同类型的自动化测试。并且通过对于这三个服务能力的编程，还可以实现各种不同测试业务需求的自动化能力。
@@ -60,7 +60,7 @@ categories: general update
 **自动化测试工作流程图：**
 
 
-![](http://liuranthinking.com/assets/Serverless-Test-Service/5.png)
+![](http://twranman.github.io/assets/Serverless-Test-Service/5.png)
 
 
 ### 总结
